@@ -32,6 +32,8 @@ cd <E3SM_SRC_DIR>/cime/scripts
 ./create_test e3sm_developer
 ```
 
+## Reference
+
 * https://e3sm.org/model/running-e3sm/
 * https://e3sm.org/model/running-e3sm/e3sm-quick-start/
 * https://github.com/E3SM-Project/E3SM
