@@ -35,8 +35,10 @@ and modify cime/config/e3sm/machines/config_machines.xml, so the hostname of "li
       <env name="E3SM_SRCROOT">$SRCROOT</env>
     </environment_variables>
 ```
-Download input data from ```https://web.lcrc.anl.gov/public/e3sm/inputdata/share/``` to
-```${HOME}/projects/acme/cesm-inputdata/```
+Download input data from ```https://web.lcrc.anl.gov/public/e3sm/inputdata/share``` to
+```${HOME}/projects/acme/cesm-inputdata/```.
+And run the container
+```
 singularity shell --writable e3sm.sif 
 export NETCDF_C_PATH=/usr/local/packages/netcdf-c-4.6.2
 export NETCDF_FORTRAN_PATH=/usr/local/packages/netcdf-fortran-4.4.4
