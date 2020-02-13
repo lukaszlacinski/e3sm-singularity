@@ -27,21 +27,25 @@ Download E3SM source (You might also want to run "git submodule update --init" a
 ```
 git clone  --recursive git@github.com:E3SM-Project/E3SM.git
 ```
-and modify cime/config/e3sm/machines/config_machines.xml, so the hostname of "linux-generic" machine matches your local machine. Define also environment variables:
+and modify cime/config/e3sm/machines/config_machines.xml, so the hostname of "linux-generic" machine matches your local machine hostname. Define also environment variables:
 ```
     <environment_variables>
-      <env name="NETCDF_C_PATH">$ENV{NETCDF_C_PATH}</env>
-      <env name="NETCDF_FORTRAN_PATH">$ENV{NETCDF_FORTRAN_PATH}</env>
+      <env name="NETCDF_PATH">$ENV{NETCDF_PATH}</env>
       <env name="E3SM_SRCROOT">$SRCROOT</env>
     </environment_variables>
+```
+And add -I flag for a Fortran compiler in cime/config/e3sm/machines/config_compilers.xml:
+```
+   <FFLAGS>
+     <append>-I$ENV{NETCDF_PATH}/include</append>
+   </FFLAGS>
 ```
 Download input data from ```https://web.lcrc.anl.gov/public/e3sm/inputdata/share``` to
 ```${HOME}/projects/acme/cesm-inputdata/```.
 And run the container
 ```
-singularity shell --writable e3sm.sif 
-export NETCDF_C_PATH=/usr/local/packages/netcdf-c-4.6.2
-export NETCDF_FORTRAN_PATH=/usr/local/packages/netcdf-fortran-4.4.4
+singularity shell --writable e3sm.sif
+export NETCDF_PATH=/usr/local/packages/netcdf
 cd <E3SM_SRC_DIR>/cime/scripts
 ./create_test e3sm_developer
 ```

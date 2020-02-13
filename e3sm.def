@@ -4,7 +4,7 @@ From: ubuntu:18.04
 %post
     apt-get -y install software-properties-common
     add-apt-repository universe
-    apt-get update && apt-get -y install csh cmake python m4 libcurl4-openssl-dev libz-dev libhdf5-dev libhdf5-openmpi-dev gcc g++ gfortran make git wget libxml2-utils
+    apt-get update && apt-get -y install csh cmake python m4 libcurl4-openssl-dev libz-dev libhdf5-dev libhdf5-openmpi-dev gcc g++ gfortran make git wget libxml2-utils libxml-libxml-perl
     cd /usr/lib/x86_64-linux-gnu
     ln -s libhdf5_serial.so libhdf5.so
     ln -s libhdf5_serial_hl.so libhdf5_hl.so
@@ -14,38 +14,39 @@ From: ubuntu:18.04
     cd /usr/local/sources
 
 
-    wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.0.tar.bz2
+    wget --inet4-only https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.0.tar.bz2
     tar xjf openmpi-4.0.0.tar.bz2
     cd openmpi-4.0.0/
     ./configure --prefix=/usr/local/packages/openmpi-4.0.0
     make && make install
     cd ..
 
-    wget https://www.unidata.ucar.edu/downloads/netcdf/ftp/netcdf-c-4.6.2.tar.gz
-    tar xzf netcdf-c-4.6.2.tar.gz 
-    cd netcdf-c-4.6.2
+    wget --inet4-only https://www.unidata.ucar.edu/downloads/netcdf/ftp/netcdf-c-4.7.3.tar.gz
+    tar xzf netcdf-c-4.7.3.tar.gz 
+    cd netcdf-c-4.7.3
     export CPPFLAGS='-I/usr/include/hdf5/serial'
-    ./configure --prefix=/usr/local/packages/netcdf-c-4.6.2
+    ./configure --prefix=/usr/local/packages/netcdf
     make && make install
     cd ..
 
-    wget https://www.unidata.ucar.edu/downloads/netcdf/ftp/netcdf-cxx4-4.3.0.tar.gz
-    tar xzf netcdf-cxx4-4.3.0.tar.gz 
-    cd netcdf-cxx4-4.3.0
-    export CPPFLAGS='-I/usr/include/hdf5/serial -I/usr/local/packages/netcdf-c-4.6.2/include'
-    export LDFLAGS='-L/usr/local/packages/netcdf-c-4.6.2/lib'
-    ./configure --prefix=/usr/local/packages/netcdf-cxx4-4.3.0
+    wget --inet4-only https://www.unidata.ucar.edu/downloads/netcdf/ftp/netcdf-cxx4-4.3.1.tar.gz
+    tar xzf netcdf-cxx4-4.3.1.tar.gz 
+    cd netcdf-cxx4-4.3.1
+    export CPPFLAGS='-I/usr/include/hdf5/serial -I/usr/local/packages/netcdf/include'
+    export LDFLAGS='-L/usr/local/packages/netcdf/lib'
+    ./configure --prefix=/usr/local/packages/netcdf-cxx4-4.3.1
     make && make install
     cd ..
 
-    wget https://www.unidata.ucar.edu/downloads/netcdf/ftp/netcdf-fortran-4.4.4.tar.gz
-    tar xzf netcdf-fortran-4.4.4.tar.gz 
-    cd netcdf-fortran-4.4.4
-    export CPPFLAGS='-I/usr/include/hdf5/serial -I/usr/local/packages/netcdf-c-4.6.2/include'
-    ./configure --prefix=/usr/local/packages/netcdf-fortran-4.4.4
+    wget --inet4-only https://www.unidata.ucar.edu/downloads/netcdf/ftp/netcdf-fortran-4.5.2.tar.gz
+    tar xzf netcdf-fortran-4.5.2.tar.gz 
+    cd netcdf-fortran-4.5.2
+    export CPPFLAGS='-I/usr/include/hdf5/serial -I/usr/local/packages/netcdf/include'
+    ./configure --prefix=/usr/local/packages/netcdf
     make && make install
     cd ..
 
-    echo "export CPPFLAGS='-I/usr/include/hdf5/serial -I/usr/local/packages/netcdf-c-4.6.2/include'" >> /etc/profile.d/e3sm.sh
-    echo "export LDFLAGS='-L/usr/local/packages/netcdf-c-4.6.2/lib'" > /etc/profile.d/e3sm.sh
+    echo "export CPPFLAGS='-I/usr/include/hdf5/serial -I/usr/local/packages/netcdf/include'" > /etc/profile.d/e3sm.sh
+    echo "export LDFLAGS='-L/usr/local/packages/netcdf/lib'" >> /etc/profile.d/e3sm.sh
+    echo "export NETCDF_PATH='/usr/local/packages/netcdf'" >> /etc/profile.d/e3sm.sh
     #git clone --recursive https://github.com/E3SM-Project/E3SM.git
