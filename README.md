@@ -28,6 +28,7 @@ Download E3SM source (You might also want to run "git submodule update --init" a
 git clone  --recursive git@github.com:E3SM-Project/E3SM.git
 ```
 and modify cime/config/e3sm/machines/config_machines.xml, so the hostname of "linux-generic" machine matches your local machine hostname. Define also environment variables:
+```
     <environment_variables>
       <env name="E3SM_SRCROOT">$SRCROOT</env>
     </environment_variables>
