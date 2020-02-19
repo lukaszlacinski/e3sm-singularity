@@ -28,10 +28,19 @@ Download E3SM source (You might also want to run "git submodule update --init" a
 git clone  --recursive git@github.com:E3SM-Project/E3SM.git
 ```
 and modify cime/config/e3sm/machines/config_machines.xml, so the hostname of "linux-generic" machine matches your local machine hostname. Define also environment variables:
-```
     <environment_variables>
-      <env name="NETCDF_PATH">$ENV{NETCDF_PATH}</env>
       <env name="E3SM_SRCROOT">$SRCROOT</env>
+    </environment_variables>
+    <environment_variables mpilib="mpi-serial">
+      <env name="NETCDF_PATH">/usr/local/packages/netcdf-serial</env>
+      <env name="PATH">/usr/local/packages/hdf5-1.10.6-serial/bin:/usr/local/packages/netcdf-serial/bin:$ENV{PATH}</env>
+      <env name="LD_LIBRARY_PATH">/usr/local/packages/szip-2.1.1/lib:/usr/local/packages/hdf5-1.10.6-serial/lib:/usr/local/packages/netcdf-serial/lib</env>
+    </environment_variables>
+    <environment_variables mpilib="!mpi-serial">
+      <env name="NETCDF_PATH">/usr/local/packages/netcdf-parallel</env>
+      <env name="PNETCDF_PATH">/usr/local/packages/pnetcdf-1.12.1</env>
+      <env name="PATH">/usr/local/packages/mpich-3.3.2/bin:/usr/local/packages/hdf5-1.10.6-parallel/bin:/usr/local/packages/netcdf-parallel/bin:/usr/local/packages/pnetcdf-1.12.1/bin:$ENV{PATH}</env>
+      <env name="LD_LIBRARY_PATH">/usr/local/packages/mpich-3.3.2/lib:/usr/local/packages/szip-2.1.1/lib:/usr/local/packages/hdf5-1.10.6-parallel/lib:/usr/local/packages/netcdf-parallel/lib:/usr/local/packages/pnetcdf-1.12.1/lib</env>
     </environment_variables>
 ```
 And add -I flag for a Fortran compiler in cime/config/e3sm/machines/config_compilers.xml:
@@ -45,7 +54,6 @@ Download input data from ```https://web.lcrc.anl.gov/public/e3sm/inputdata/share
 And run the container
 ```
 singularity shell --writable e3sm.sif
-export NETCDF_PATH=/usr/local/packages/netcdf
 cd <E3SM_SRC_DIR>/cime/scripts
 ./create_test e3sm_developer
 ```
