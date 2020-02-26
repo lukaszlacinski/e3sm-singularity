@@ -4,7 +4,7 @@ From: ubuntu:18.04
 %post
     apt-get -y install software-properties-common
     add-apt-repository universe
-    apt-get update && apt-get -y install csh cmake python m4 libcurl4-openssl-dev libz-dev gcc g++ gfortran liblapack-dev make git wget libxml2-utils libxml-libxml-perl
+    apt-get update && apt-get -y install locales csh cmake python m4 libcurl4-openssl-dev libz-dev gcc g++ gfortran liblapack-dev make git wget subversion libxml2-utils libxml-libxml-perl libswitch-perl
 
     mkdir -p /usr/local/packages
     mkdir -p /usr/local/sources
@@ -206,8 +206,3 @@ From: ubuntu:18.04
     unset LIBS
     ./configure --prefix=/usr/local/packages/pnetcdf-1.12.1 --disable-in-place-swap
     make && make install
-
-    echo "export CPPFLAGS='-I/usr/include/hdf5/serial -I/usr/local/packages/netcdf/include'" > /etc/profile.d/e3sm.sh
-    echo "export LDFLAGS='-L/usr/local/packages/netcdf/lib'" >> /etc/profile.d/e3sm.sh
-    echo "export NETCDF_PATH='/usr/local/packages/netcdf'" >> /etc/profile.d/e3sm.sh
-    #git clone --recursive https://github.com/E3SM-Project/E3SM.git

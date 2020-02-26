@@ -23,11 +23,22 @@ sudo singularity build e3sm.sif e3sm.def
 ```
 
 ## Run E3SM developer tests
-Download E3SM source (You might also want to run "git submodule update --init" after you clone the source)
+Download E3SM source
 ```
-git clone  --recursive git@github.com:E3SM-Project/E3SM.git
+git clone -b maint-1.0 --recursive git@github.com:E3SM-Project/E3SM.git
 ```
-and modify cime/config/e3sm/machines/config_machines.xml, so the hostname of "linux-generic" machine matches your local machine hostname. Define also environment variables:
+and check out a particular commit (01faf3aa1 was successfully run in the container; only few cases failed). Before running the model,
+ modify `cime/config/e3sm/machines/config_machines.xml`, so the hostname of `linux-generic` machine matches your local machine hostname.
+Remove `openmpi` from `MPILIBS`:
+```
+    <MPILIBS>mpich</mpilibs>
+```
+Specify gmake command above the gmake_j element:
+```
+    <GMAKE>make</GMAKE>
+    <GMAKE_J>4</GMAKE_J>
+```
+Define also environment variables:
 ```
     <environment_variables>
       <env name="E3SM_SRCROOT">$SRCROOT</env>
@@ -44,17 +55,10 @@ and modify cime/config/e3sm/machines/config_machines.xml, so the hostname of "li
       <env name="LD_LIBRARY_PATH">/usr/local/packages/mpich-3.3.2/lib:/usr/local/packages/szip-2.1.1/lib:/usr/local/packages/hdf5-1.10.6-parallel/lib:/usr/local/packages/netcdf-parallel/lib:/usr/local/packages/pnetcdf-1.12.1/lib</env>
     </environment_variables>
 ```
-And add -I flag for a Fortran compiler in cime/config/e3sm/machines/config_compilers.xml:
-```
-   <FFLAGS>
-     <append>-I$ENV{NETCDF_PATH}/include</append>
-   </FFLAGS>
-```
-Download input data from ```https://web.lcrc.anl.gov/public/e3sm/inputdata/share``` to
-```${HOME}/projects/acme/cesm-inputdata/```.
 And run the container
 ```
-singularity shell --writable e3sm.sif
+mkdir $HOME/projects
+singularity shell -B $HOME/projects e3sm.sif
 cd <E3SM_SRC_DIR>/cime/scripts
 ./create_test e3sm_developer
 ```
