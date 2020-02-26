@@ -119,10 +119,18 @@ At this point you can run the container
 ```
 mkdir $HOME/projects
 singularity shell -B $HOME/projects e3sm.sif
-cd <E3SM_SRC_DIR>/cime/scripts
-./create_test e3sm_developer
+Singularity> cd <E3SM_SRC_DIR>/cime/scripts
+Singularity> ./create_test e3sm_developer
 ```
-The developer test creates and runs about 32 cases. To create a new case separately and run it, please refer to [E3SM Quick Start](https://e3sm.org/model/running-e3sm/e3sm-quick-start/).
+The developer test creates and runs about 32 cases. To create a new case separately and run it, for example water cycle 1850 with ultra low resolution:
+```
+Singularity> ./create_newcase --case master.A_WCYCL1850.ne4_oQU240.baseline —-compset A_WCYCL1850 —-res ne4_oQU240
+Singularity> cd master.A_WCYCL1850.ne4_oQU240.baseline
+Singularity> ./case.setup
+Singularity> ./case.build
+Singularity> ./case.submit
+```
+For more details on how to create a new case and run it, please refer to [E3SM Quick Start](https://e3sm.org/model/running-e3sm/e3sm-quick-start/).
 
 ## Reference
 
