@@ -104,6 +104,9 @@ The entire machine element will look like: <details><summary>click to expand</su
     </environment_variables>
 </machine>
 ```
+</p>
+</details>
+
 Then add options `-lblas -llapack` to a linker in `config_compiler.xml`:
 ```
 <compiler COMPILER="gnu" MACH="linux-generic">
@@ -112,9 +115,6 @@ Then add options `-lblas -llapack` to a linker in `config_compiler.xml`:
   <ADD_SLIBS> $(shell $(NETCDF_PATH)/bin/nf-config --flibs) -lblas -llapack</ADD_SLIBS>
 </compiler>
 ```
-</p>
-</details>
-
 At this point you can run the container
 ```
 mkdir $HOME/projects
