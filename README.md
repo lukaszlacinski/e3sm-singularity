@@ -107,7 +107,7 @@ The entire machine element will look like: <details><summary>click to expand</su
 </p>
 </details>
 
-Then add options `-lblas -llapack` to a linker in `config_compilers.xml`:
+Then add options `-lblas -llapack` to a linker in `cime/config/e3sm/machines/config_compilers.xml`:
 ```
 <compiler COMPILER="gnu" MACH="linux-generic">
   <NETCDF_PATH> $(NETCDF_PATH)</NETCDF_PATH>
