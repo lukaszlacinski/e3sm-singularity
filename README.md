@@ -1,18 +1,11 @@
 # e3sm-singularity
 Singularity container for E3SM
 
-## Install singularity
+## Install Singularity
+Install Singularity as described at [Singularity Installation](https://sylabs.io/guides/3.0/user-guide/installation.html).
 
-```
-go get -d github.com/sylabs/singularity
-export VERSION=v3.0.3
-./mconfig && make -C ./builddir && sudo make -C ./builddir install
-. /usr/local/etc/bash_completion.d/singularity
-singularity --version
-```
-
-## Build singularity container
-Download container definition file 
+## Build E3SM Singularity container
+Download the container definition file 
 ```
 git clone https://github.com/lukaszlacinski/e3sm-singularity.git
 cd e3sm-singularity
@@ -27,8 +20,7 @@ Download E3SM source
 ```
 git clone -b maint-1.0 --recursive git@github.com:E3SM-Project/E3SM.git
 ```
-and check out a particular commit (01faf3aa1 was successfully run in the container; only few cases failed). Before running the model,
- modify `cime/config/e3sm/machines/config_machines.xml`, so the hostname of `linux-generic` machine matches your local machine hostname.
+Modify `cime/config/e3sm/machines/config_machines.xml`, so the hostname of `linux-generic` machine matches your local machine hostname.
 Remove `openmpi` from `MPILIBS`:
 ```
     <MPILIBS>mpich</mpilibs>
@@ -134,6 +126,7 @@ For more details on how to create a new case and run it, please refer to [E3SM Q
 
 ## Reference
 
+* https://sylabs.io/guides/3.0/user-guide/
 * https://e3sm.org/model/running-e3sm/
 * https://e3sm.org/model/running-e3sm/e3sm-quick-start/
 * https://github.com/E3SM-Project/E3SM
