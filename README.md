@@ -55,8 +55,7 @@ Define also environment variables:
       <env name="LD_LIBRARY_PATH">/usr/local/packages/mpich-3.3.2/lib:/usr/local/packages/szip-2.1.1/lib:/usr/local/packages/hdf5-1.10.6-parallel/lib:/usr/local/packages/netcdf-parallel/lib:/usr/local/packages/pnetcdf-1.12.1/lib</env>
     </environment_variables>
 ```
-The entire machine element will look like:
-<details><summary>click to expand</summary>
+The entire machine element will look like: <details><summary>click to expand</summary>
 <p>
 
 ```
