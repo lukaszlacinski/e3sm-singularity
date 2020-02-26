@@ -61,7 +61,7 @@ The entire machine element will look like: <details><summary>click to expand</su
 ```
 <machine MACH="linux-generic">
     <DESC>Linux workstation or laptop</DESC>
-    <NODENAME_REGEX>hostname</NODENAME_REGEX>
+    <NODENAME_REGEX>your_hostname</NODENAME_REGEX>
     <OS>LINUX</OS>
     <TESTS>e3sm_developer</TESTS>
     <BATCH_SYSTEM>none</BATCH_SYSTEM>
