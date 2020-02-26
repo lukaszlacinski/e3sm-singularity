@@ -115,6 +115,7 @@ singularity shell -B $HOME/projects e3sm.sif
 cd <E3SM_SRC_DIR>/cime/scripts
 ./create_test e3sm_developer
 ```
+The developer test creates and runs about 32 cases. To create a new case separately and run it, please refer to [E3SM Quick Start](https://e3sm.org/model/running-e3sm/e3sm-quick-start/).
 
 ## Reference
 
