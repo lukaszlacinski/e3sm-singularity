@@ -104,11 +104,18 @@ The entire machine element will look like: <details><summary>click to expand</su
     </environment_variables>
 </machine>
 ```
-
+Then add options `-lblas -llapack` to a linker in `config_compiler.xml`:
+```
+<compiler COMPILER="gnu" MACH="linux-generic">
+  <NETCDF_PATH> $(NETCDF_PATH)</NETCDF_PATH>
+  <PNETCDF_PATH> $(PNETCDF_PATH)</PNETCDF_PATH>
+  <ADD_SLIBS> $(shell $(NETCDF_PATH)/bin/nf-config --flibs) -lblas -llapack</ADD_SLIBS>
+</compiler>
+```
 </p>
 </details>
 
-And run the container
+At this point you can run the container
 ```
 mkdir $HOME/projects
 singularity shell -B $HOME/projects e3sm.sif
