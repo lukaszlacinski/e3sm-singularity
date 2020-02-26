@@ -33,7 +33,7 @@ Remove `openmpi` from `MPILIBS`:
 ```
     <MPILIBS>mpich</mpilibs>
 ```
-Specify gmake command above the gmake_j element:
+Specify `GMAKE` command above the `GMAKE_J` element:
 ```
     <GMAKE>make</GMAKE>
     <GMAKE_J>4</GMAKE_J>
