@@ -20,7 +20,7 @@ Download E3SM source
 ```
 git clone -b maint-1.0 --recursive git@github.com:E3SM-Project/E3SM.git
 ```
-Modify `cime/config/e3sm/machines/config_machines.xml`, so the hostname of `linux-generic` machine matches your local machine hostname.
+Modify `cime/config/e3sm/machines/config_machines.xml`, so a value of the `NODENAME_REGEX` element of the `linux-generic` machine is `singularity`.
 Remove `openmpi` from `MPILIBS`:
 ```
     <MPILIBS>mpich</mpilibs>
@@ -53,7 +53,7 @@ The entire machine element will look like: <details><summary>click to expand</su
 ```
 <machine MACH="linux-generic">
     <DESC>Linux workstation or laptop</DESC>
-    <NODENAME_REGEX>your_hostname</NODENAME_REGEX>
+    <NODENAME_REGEX>singularity</NODENAME_REGEX>
     <OS>LINUX</OS>
     <TESTS>e3sm_developer</TESTS>
     <BATCH_SYSTEM>none</BATCH_SYSTEM>
