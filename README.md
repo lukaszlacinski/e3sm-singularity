@@ -18,7 +18,7 @@ sudo singularity build e3sm.sif e3sm.def
 ## Run E3SM developer tests
 Download E3SM source
 ```
-git clone -b maint-1.0 --recursive git@github.com:E3SM-Project/E3SM.git
+git clone -b maint-1.2 --recursive git@github.com:E3SM-Project/E3SM.git
 ```
 Modify `cime/config/e3sm/machines/config_machines.xml`, so a value of the `NODENAME_REGEX` element of the `linux-generic` machine is `singularity`.
 Remove `openmpi` from `MPILIBS`:
