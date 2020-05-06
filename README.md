@@ -14,7 +14,7 @@ Build the E3SM container
 ```
 sudo singularity build e3sm.sif e3sm.def
 ```
-It will take about an hour to build the container. You can also download the latest version of the E3SM container from [here](https://dabdceba-6d04-11e5-ba46-22000b92c6ec.e.globus.org/containers/public/e3sm.def).
+It will take about an hour to build the container. You can also download the latest version of the E3SM container from [here](https://dabdceba-6d04-11e5-ba46-22000b92c6ec.e.globus.org/containers/public/e3sm.sif).
 
 ## Run E3SM developer tests
 Download E3SM source
