@@ -19,7 +19,7 @@ It will take about an hour to build the container. You can also download the lat
 ## Run E3SM developer tests
 Download E3SM source
 ```
-git clone -b maint-1.2 --recursive git@github.com:E3SM-Project/E3SM.git
+git clone --recursive git@github.com:E3SM-Project/E3SM.git
 ```
 Modify `cime/config/e3sm/machines/config_machines.xml`, so a value of the `NODENAME_REGEX` element of the `linux-generic` machine is `singularity`.
 Remove `openmpi` from `MPILIBS`:
@@ -38,14 +38,14 @@ Define also environment variables:
     </environment_variables>
     <environment_variables mpilib="mpi-serial">
       <env name="NETCDF_PATH">/usr/local/packages/netcdf-serial</env>
-      <env name="PATH">/usr/local/packages/hdf5-1.10.6-serial/bin:/usr/local/packages/netcdf-serial/bin:$ENV{PATH}</env>
-      <env name="LD_LIBRARY_PATH">/usr/local/packages/szip-2.1.1/lib:/usr/local/packages/hdf5-1.10.6-serial/lib:/usr/local/packages/netcdf-serial/lib</env>
+      <env name="PATH">/usr/local/packages/cmake/bin:/usr/local/packages/hdf5-serial/bin:/usr/local/packages/netcdf-serial/bin:$ENV{PATH}</env>
+      <env name="LD_LIBRARY_PATH">/usr/local/packages/szip/lib:/usr/local/packages/hdf5-serial/lib:/usr/local/packages/netcdf-serial/lib</env>
     </environment_variables>
     <environment_variables mpilib="!mpi-serial">
       <env name="NETCDF_PATH">/usr/local/packages/netcdf-parallel</env>
-      <env name="PNETCDF_PATH">/usr/local/packages/pnetcdf-1.12.1</env>
-      <env name="PATH">/usr/local/packages/mpich-3.3.2/bin:/usr/local/packages/hdf5-1.10.6-parallel/bin:/usr/local/packages/netcdf-parallel/bin:/usr/local/packages/pnetcdf-1.12.1/bin:$ENV{PATH}</env>
-      <env name="LD_LIBRARY_PATH">/usr/local/packages/mpich-3.3.2/lib:/usr/local/packages/szip-2.1.1/lib:/usr/local/packages/hdf5-1.10.6-parallel/lib:/usr/local/packages/netcdf-parallel/lib:/usr/local/packages/pnetcdf-1.12.1/lib</env>
+      <env name="PNETCDF_PATH">/usr/local/packages/pnetcdf</env>
+      <env name="PATH">/usr/local/packages/cmake/bin:/usr/local/packages/mpich/bin:/usr/local/packages/hdf5-parallel/bin:/usr/local/packages/netcdf-parallel/bin:/usr/local/packages/pnetcdf/bin:$ENV{PATH}</env>
+      <env name="LD_LIBRARY_PATH">/usr/local/packages/mpich/lib:/usr/local/packages/szip/lib:/usr/local/packages/hdf5-parallel/lib:/usr/local/packages/netcdf-parallel/lib:/usr/local/packages/pnetcdf/lib</env>
     </environment_variables>
 ```
 The entire machine element will look like: <details><summary>click to expand</summary>
@@ -60,20 +60,20 @@ The entire machine element will look like: <details><summary>click to expand</su
     <BATCH_SYSTEM>none</BATCH_SYSTEM>
     <COMPILERS>gnu</COMPILERS>
     <MPILIBS>mpich</MPILIBS>
-    <RUNDIR>$ENV{HOME}/projects/acme/scratch/$CASE/run</RUNDIR>
-    <EXEROOT>$ENV{HOME}/projects/acme/scratch/$CASE/bld</EXEROOT>
-    <DIN_LOC_ROOT>$ENV{HOME}/projects/acme/cesm-inputdata</DIN_LOC_ROOT>
-    <DIN_LOC_ROOT_CLMFORC>$ENV{HOME}/projects/acme/ptclm-data</DIN_LOC_ROOT_CLMFORC>
-    <DOUT_S_ROOT>$ENV{HOME}/projects/acme/scratch/archive/$CASE</DOUT_S_ROOT>
+    <RUNDIR>$ENV{HOME}/projects/e3sm/scratch/$CASE/run</RUNDIR>
+    <EXEROOT>$ENV{HOME}/projects/e3sm/scratch/$CASE/bld</EXEROOT>
+    <DIN_LOC_ROOT>$ENV{HOME}/projects/e3sm/cesm-inputdata</DIN_LOC_ROOT>
+    <DIN_LOC_ROOT_CLMFORC>$ENV{HOME}/projects/e3sm/ptclm-data</DIN_LOC_ROOT_CLMFORC>
+    <DOUT_S_ROOT>$ENV{HOME}/projects/e3sm/scratch/archive/$CASE</DOUT_S_ROOT>
     <DOUT_L_MSROOT>csm/$CASE</DOUT_L_MSROOT>
-    <CIME_OUTPUT_ROOT>$ENV{HOME}/projects/acme/scratch</CIME_OUTPUT_ROOT>
-    <BASELINE_ROOT>$ENV{HOME}/projects/acme/baselines/$COMPILER</BASELINE_ROOT>
+    <CIME_OUTPUT_ROOT>$ENV{HOME}/projects/e3sm/scratch</CIME_OUTPUT_ROOT>
+    <BASELINE_ROOT>$ENV{HOME}/projects/e3sm/baselines/$COMPILER</BASELINE_ROOT>
     <CCSM_CPRNC>$CCSMROOT/tools/cprnc/build/cprnc</CCSM_CPRNC>
-    <SUPPORTED_BY>jayesh at mcs dot anl dot gov</SUPPORTED_BY>
+    <SUPPORTED_BY>lukasz at uchicago dot edu</SUPPORTED_BY>
     <GMAKE>make</GMAKE>
-    <GMAKE_J>4</GMAKE_J>
-    <MAX_TASKS_PER_NODE>4</MAX_TASKS_PER_NODE>
-    <MAX_MPITASKS_PER_NODE>2</MAX_MPITASKS_PER_NODE>
+    <GMAKE_J>16</GMAKE_J>
+    <MAX_TASKS_PER_NODE>16</MAX_TASKS_PER_NODE>
+    <MAX_MPITASKS_PER_NODE>16</MAX_MPITASKS_PER_NODE>
     <mpirun mpilib="default">
       <executable>mpirun</executable>
       <arguments>
@@ -86,14 +86,14 @@ The entire machine element will look like: <details><summary>click to expand</su
     </environment_variables>
     <environment_variables mpilib="mpi-serial">
       <env name="NETCDF_PATH">/usr/local/packages/netcdf-serial</env>
-      <env name="PATH">/usr/local/packages/hdf5-1.10.6-serial/bin:/usr/local/packages/netcdf-serial/bin:$ENV{PATH}</env>
-      <env name="LD_LIBRARY_PATH">/usr/local/packages/szip-2.1.1/lib:/usr/local/packages/hdf5-1.10.6-serial/lib:/usr/local/packages/netcdf-serial/lib</env>
+      <env name="PATH">/usr/local/packages/cmake/bin:/usr/local/packages/hdf5-serial/bin:/usr/local/packages/netcdf-serial/bin:$ENV{PATH}</env>
+      <env name="LD_LIBRARY_PATH">/usr/local/packages/szip/lib:/usr/local/packages/hdf5-serial/lib:/usr/local/packages/netcdf-serial/lib</env>
     </environment_variables>
     <environment_variables mpilib="!mpi-serial">
       <env name="NETCDF_PATH">/usr/local/packages/netcdf-parallel</env>
-      <env name="PNETCDF_PATH">/usr/local/packages/pnetcdf-1.12.1</env>
-      <env name="PATH">/usr/local/packages/mpich-3.3.2/bin:/usr/local/packages/hdf5-1.10.6-parallel/bin:/usr/local/packages/netcdf-parallel/bin:/usr/local/packages/pnetcdf-1.12.1/bin:$ENV{PATH}</env>
-      <env name="LD_LIBRARY_PATH">/usr/local/packages/mpich-3.3.2/lib:/usr/local/packages/szip-2.1.1/lib:/usr/local/packages/hdf5-1.10.6-parallel/lib:/usr/local/packages/netcdf-parallel/lib:/usr/local/packages/pnetcdf-1.12.1/lib</env>
+      <env name="PNETCDF_PATH">/usr/local/packages/pnetcdf</env>
+      <env name="PATH">/usr/local/packages/cmake/bin:/usr/local/packages/mpich/bin:/usr/local/packages/hdf5-parallel/bin:/usr/local/packages/netcdf-parallel/bin:/usr/local/packages/pnetcdf/bin:$ENV{PATH}</env>
+      <env name="LD_LIBRARY_PATH">/usr/local/packages/mpich/lib:/usr/local/packages/szip/lib:/usr/local/packages/hdf5-parallel/lib:/usr/local/packages/netcdf-parallel/lib:/usr/local/packages/pnetcdf/lib</env>
     </environment_variables>
 </machine>
 ```
@@ -110,8 +110,8 @@ Then add options `-lblas -llapack` to a linker in `cime/config/e3sm/machines/con
 ```
 At this point you can run the container
 ```
-mkdir $HOME/projects
-singularity shell -B $HOME/projects e3sm.sif
+mkdir $HOME/projects/e3sm/cesm-inputdata
+singularity shell --hostname singularity e3sm.sif
 Singularity> cd <E3SM_SRC_DIR>/cime/scripts
 Singularity> ./create_test e3sm_developer
 ```
