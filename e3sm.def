@@ -5,7 +5,7 @@ From: ubuntu:18.04
 %post
     apt-get -y install software-properties-common
     add-apt-repository universe
-    apt-get update && apt-get -y install locales csh python m4 libcurl4-openssl-dev libssl-dev libz-dev gcc g++ gfortran liblapack-dev make git wget subversion libxml2-utils libxml-libxml-perl libswitch-perl
+    apt-get update && apt-get -y install locales csh python3 m4 libcurl4-openssl-dev libssl-dev libz-dev gcc g++ gfortran liblapack-dev make git wget subversion libxml2-utils libxml-libxml-perl libswitch-perl
     locale-gen en_US.UTF-8
     hostname singularity
 
